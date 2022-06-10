@@ -8,8 +8,7 @@ defmodule Formtool.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Formtool.Worker.start_link(arg)
-      # {Formtool.Worker, arg}
+      {Plug.Cowboy, scheme: :http, plug: Formtool.Router, port: 4000}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
