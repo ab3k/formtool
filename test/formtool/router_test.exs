@@ -29,4 +29,34 @@ defmodule Formtool.RouterTest do
     assert conn.status == 200
     assert conn.resp_body == "pong"
   end
+
+  test "GET /does-not-exist responses with 404 status" do
+    conn = conn(:get, "/does-not-exist")
+
+    conn = Formtool.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 404
+    assert conn.resp_body == "not found"
+  end
+
+  test "GET /div/2/1 returns 0.5" do
+    conn = conn(:get, "/div/1/2")
+
+    conn = Formtool.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+    assert conn.resp_body == "0.5"
+  end
+
+  test "GET /div/1/0 responses with 500 status" do
+    conn = conn(:get, "/div/1/0")
+
+    conn = Formtool.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 500
+    assert conn.resp_body == "Something went wrong"
+  end
 end

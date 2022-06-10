@@ -20,13 +20,7 @@ defmodule Formtool.Router do
   end
 
   get "/div/:x/:y" do
-    %{"x" => dividend, "y" => divisor} = conn.path_params
-
-    result =
-      with {x, _} <- Integer.parse(dividend),
-           {y, _} <- Integer.parse(divisor) do
-        x / y
-      end
+    result = Formtool.divide_strings(conn.path_params)
 
     conn
     |> put_resp_content_type("text/plain")
