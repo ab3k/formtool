@@ -1,0 +1,23 @@
+# EXAMPLE USAGE
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+
+pre-push:
+  parallel: false
+  commands:
+    mix-check-format-all:
+      run: mix format --check-formatted {all_files}
+    mix-credo-all:
+      run: mix credo {all_files}
+    mix-test-all:
+      run: mix test
+
+pre-commit:
+  parallel: false
+  commands:
+    mix-check-format-staged:
+      glob: "{*.ex,*.exs}"
+      run: mix format --check-formatted {staged_files}
+    mix-credo-staged:
+      glob: "{*.ex,*.exs}"
+      run: mix credo {staged_files}
