@@ -9,7 +9,13 @@ defmodule Formtool.Router do
   get "/" do
     conn
     |> put_resp_content_type("text/plain")
-    |> send_resp(200, "ping")
+    |> send_resp(200, "ok")
+  end
+
+  get "/ping" do
+    conn
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, "pong")
   end
 
   match _ do
