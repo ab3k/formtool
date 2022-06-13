@@ -50,13 +50,20 @@ defmodule Formtool.RouterTest do
     assert conn.resp_body == "0.5"
   end
 
+  # There is no actual HTTP request/response, because we are
+  # unit testing a Plug. We therefore need to assert Plug specific
+  # state and cannot assert on a HTTP response content.
   test "GET /div/1/0 responses with 500 status" do
     conn = conn(:get, "/div/1/0")
 
-    conn = Formtool.Router.call(conn, @opts)
+    # call the Plug and expect a wrapped exception
+    assert_raise Plug.Conn.WrapperError, fn ->
+      Formtool.Router.call(conn, @opts)
+    end
 
-    assert conn.state == :sent
-    assert conn.status == 500
-    assert conn.resp_body == "Something went wrong"
+    # Plug deals with the blown up request and sends a message to the caller
+    # (us). Then we can retrieve the response-to-be-sent from the Plug.Conn.
+    assert_received {:plug_conn, :sent}
+    assert {500, _headers, "Something went wrong"} = sent_resp(conn)
   end
 end
