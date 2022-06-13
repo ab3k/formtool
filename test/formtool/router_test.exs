@@ -66,4 +66,14 @@ defmodule Formtool.RouterTest do
     assert_received {:plug_conn, :sent}
     assert {500, _headers, "Something went wrong"} = sent_resp(conn)
   end
+
+  test "GET /div/no/integers responses with 400 status" do
+    conn = conn(:get, "/div/no/integers")
+
+    conn = Formtool.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 400
+    assert conn.resp_body == "bad data"
+  end
 end

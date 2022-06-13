@@ -20,11 +20,14 @@ defmodule Formtool.Router do
   end
 
   get "/div/:x/:y" do
-    result = Formtool.divide_strings(conn.path_params)
+    conn =
+      conn
+      |> put_resp_content_type("text/plain")
 
-    conn
-    |> put_resp_content_type("text/plain")
-    |> send_resp(200, Float.to_string(result))
+    case Formtool.divide_strings(conn.path_params) do
+      :error -> send_resp(conn, 400, "bad data")
+      result -> send_resp(conn, 200, Float.to_string(result))
+    end
   end
 
   match _ do
