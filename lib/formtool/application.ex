@@ -12,6 +12,7 @@ defmodule Formtool.Application do
       |> Keyword.get(:port)
 
     children = [
+      Formtool.Repo,
       {Plug.Cowboy, scheme: :http, plug: Formtool.Router, port: port}
     ]
 
