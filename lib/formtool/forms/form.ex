@@ -8,6 +8,7 @@ defmodule Formtool.Forms.Form do
     field :uuid, Ecto.UUID, autogenerate: true
     field :title, :string
     field :description, :string
+    has_many :components, Formtool.Forms.Component
 
     timestamps()
   end
