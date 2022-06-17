@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  db:
+    image: docker.io/library/postgres:13.7-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+  formtool:
+    image: docker.io/ab3k/debian-elixir:bullseye
+    tty: true
+    user: elixir
+    restart: "no"
+    environment:
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - DATABASE_HOST=db
+      - PORT=4001
+    volumes:
+      - .:/workspace:cached
+    ports:
+      - '4001:4001'
+volumes:
+  db:
+    driver: local

@@ -1,0 +1,128 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Mix: Compile",
+            "command": "mix",
+            "group": "build",
+            "args": [
+                "compile"
+            ],
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Mix: Run all tests",
+            "command": "mix test",
+            "type": "shell",
+            "group": "test",
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning",
+                "$mixTestFailure"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Mix: Set focused test",
+            "group": "test",
+            "type": "shell",
+            "command": "echo -n ${relativeFile}:${lineNumber} > ${workspaceRoot}/.vscode/TEST_FOCUS",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Mix: Clear focused test",
+            "group": "test",
+            "type": "shell",
+            "command": "rm ${workspaceRoot}/.vscode/TEST_FOCUS",
+            "presentation": {
+                "echo": true,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Mix: Run focused test",
+            "command": "mix test (cat ${workspaceRoot}/.vscode/TEST_FOCUS)",
+            "type": "shell",
+            "group": "test",
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning",
+                "$mixTestFailure"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Mix: Debug focused test",
+            "command": "iex -S mix test (cat ${workspaceRoot}/.vscode/TEST_FOCUS)",
+            "type": "shell",
+            "group": "test",
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning",
+                "$mixTestFailure"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Mix: Test current file",
+            "command": "mix test ${relativeFile}",
+            "group": "test",
+            "type": "shell",
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning",
+                "$mixTestFailure"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Mix: iex session",
+            "command": "iex -S mix",
+            "group": "build",
+            "type": "shell",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated"
+            }
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "formtool",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "extensions": [
+    "JakeBecker.elixir-ls",
+    "pantajoe.vscode-elixir-credo"
+  ]
+}
