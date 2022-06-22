@@ -20,5 +20,5 @@ cond do
 end
 
 if port = System.get_env("PORT") do
-  config :formtool, Formtool.Router, port: String.to_integer(port)
+  config :formtool, FormtoolApi.Endpoint, port: String.to_integer(port)
 end

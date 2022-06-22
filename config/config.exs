@@ -2,7 +2,7 @@
 import Config
 
 # Configure the HTTP server port
-config :formtool, Formtool.Router, port: 4000
+config :formtool, FormtoolApi.Endpoint, port: 4000
 
 # Configure Ecto repos
 config :formtool, ecto_repos: [Formtool.Repo]

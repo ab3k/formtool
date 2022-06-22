@@ -1,18 +1,20 @@
-defmodule Formtool.RouterTest do
+defmodule FormtoolApi.EndpointTest do
   @moduledoc """
-  Tests for the Formtool routes.
+  Tests for the Formtool endpoint.
   """
   use ExUnit.Case, async: true
   use Plug.Test
 
-  @opts Formtool.Router.init([])
+  alias FormtoolApi.Endpoint
+
+  @opts Endpoint.init([])
 
   test "GET / returns ok" do
     # Create a test connection
     conn = conn(:get, "/")
 
     # Invoke the plug
-    conn = Formtool.Router.call(conn, @opts)
+    conn = Endpoint.call(conn, @opts)
 
     # Assert the response and status
     assert conn.state == :sent
@@ -23,7 +25,7 @@ defmodule Formtool.RouterTest do
   test "GET /ping returns pong" do
     conn = conn(:get, "/ping")
 
-    conn = Formtool.Router.call(conn, @opts)
+    conn = Endpoint.call(conn, @opts)
 
     assert conn.state == :sent
     assert conn.status == 200
@@ -33,7 +35,7 @@ defmodule Formtool.RouterTest do
   test "GET /does-not-exist responses with 404 status" do
     conn = conn(:get, "/does-not-exist")
 
-    conn = Formtool.Router.call(conn, @opts)
+    conn = Endpoint.call(conn, @opts)
 
     assert conn.state == :sent
     assert conn.status == 404
@@ -43,7 +45,7 @@ defmodule Formtool.RouterTest do
   test "GET /div/2/1 returns 0.5" do
     conn = conn(:get, "/div/1/2")
 
-    conn = Formtool.Router.call(conn, @opts)
+    conn = Endpoint.call(conn, @opts)
 
     assert conn.state == :sent
     assert conn.status == 200
@@ -58,7 +60,7 @@ defmodule Formtool.RouterTest do
 
     # call the Plug and expect a wrapped exception
     assert_raise Plug.Conn.WrapperError, fn ->
-      Formtool.Router.call(conn, @opts)
+      Endpoint.call(conn, @opts)
     end
 
     # Plug deals with the blown up request and sends a message to the caller
@@ -70,7 +72,7 @@ defmodule Formtool.RouterTest do
   test "GET /div/no/integers responses with 400 status" do
     conn = conn(:get, "/div/no/integers")
 
-    conn = Formtool.Router.call(conn, @opts)
+    conn = Endpoint.call(conn, @opts)
 
     assert conn.state == :sent
     assert conn.status == 400

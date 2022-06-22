@@ -1,4 +1,4 @@
-defmodule Formtool.Router do
+defmodule FormtoolApi.Endpoint do
   @moduledoc false
 
   use Plug.Router

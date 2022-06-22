@@ -8,12 +8,12 @@ defmodule Formtool.Application do
   @impl true
   def start(_type, _args) do
     port =
-      Application.get_env(:formtool, Formtool.Router, port: 4000)
+      Application.get_env(:formtool, FormtoolApi.Endpoint, port: 4000)
       |> Keyword.get(:port)
 
     children = [
       Formtool.Repo,
-      {Plug.Cowboy, scheme: :http, plug: Formtool.Router, port: port}
+      {Plug.Cowboy, scheme: :http, plug: FormtoolApi.Endpoint, port: port}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
