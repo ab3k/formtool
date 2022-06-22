@@ -16,7 +16,8 @@ form1 =
       id: 1,
       uuid: "06d4c473-f3f0-4ee6-9d22-e09178fcdbd5",
       title: "Form 1",
-      description: "A form with components"
+      description: "A form with components",
+      config: %{}
     },
     on_conflict: :nothing
   )
@@ -29,6 +30,7 @@ _component1 =
       uuid: "6bc682be-209a-49cd-a267-620a2dcb03e5",
       type: "text",
       name: "email",
+      config: %{},
       weight: 1
     },
     on_conflict: :nothing
@@ -42,6 +44,7 @@ _component2 =
       uuid: "989b81da-4124-4181-b1a7-46f90b2703e7",
       type: "text",
       name: "name",
+      config: %{},
       weight: 2
     },
     on_conflict: :nothing
@@ -53,7 +56,8 @@ _form2 =
       id: 2,
       uuid: "1aa73cd9-d337-4664-8215-ed19103183dd",
       title: "Form 2",
-      description: "An empty form"
+      description: "An empty form",
+      config: %{}
     },
     on_conflict: :nothing
   )

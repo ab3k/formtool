@@ -9,7 +9,8 @@ defmodule Formtool.FormsTest do
   @basic_form %{
     uuid: Ecto.UUID.dump!("9e2e5f01-f267-46b7-90c3-c71f49e7186a"),
     title: "Test form",
-    description: "A short description"
+    description: "A short description",
+    config: %{}
   }
 
   @valid_component_types Component.__component_types__()
@@ -108,12 +109,30 @@ defmodule Formtool.FormsTest do
       assert form1.id == form2.id
       assert form2.title == "By UUID"
     end
+
+    test "schemaless config can be stored" do
+      form = form_fixture(@basic_form)
+
+      # Update and re-read from DB
+      {:ok, form} =
+        form
+        |> Form.changeset(%{config: %{"key1" => 1, key2: 2}})
+        |> Repo.update(returning: true)
+
+      assert form.config == %{"key1" => 1, "key2" => 2}
+    end
   end
 
   describe "Component" do
     test "creating and updating" do
       form = form_fixture(@basic_form)
-      component = component_fixture(form, %{name: "my_field", weight: 1})
+
+      component =
+        component_fixture(form, %{
+          name: "my_field",
+          config: %{},
+          weight: 1
+        })
 
       assert component.name == "my_field"
       assert component.weight == 1
@@ -199,6 +218,19 @@ defmodule Formtool.FormsTest do
             weight: 1
           })
       end
+    end
+
+    test "schemaless config can be stored" do
+      form = form_fixture(@basic_form)
+      component = component_fixture(form, %{name: "test"})
+
+      # Update and re-read from DB
+      {:ok, component} =
+        component
+        |> Component.changeset(%{config: %{"key1" => 1, key2: 2}})
+        |> Repo.update(returning: true)
+
+      assert component.config == %{"key1" => 1, "key2" => 2}
     end
   end
 end

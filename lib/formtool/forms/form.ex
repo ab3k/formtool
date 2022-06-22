@@ -8,6 +8,7 @@ defmodule Formtool.Forms.Form do
     field :uuid, Ecto.UUID, autogenerate: true
     field :title, :string
     field :description, :string
+    field :config, :map
     has_many :components, Formtool.Forms.Component
 
     timestamps()
@@ -16,7 +17,7 @@ defmodule Formtool.Forms.Form do
   @doc false
   def changeset(form, attrs) do
     form
-    |> cast(attrs, [:uuid, :title, :description])
+    |> cast(attrs, [:uuid, :title, :description, :config])
     |> validate_required([:title])
     |> unique_constraint([:uuid])
   end

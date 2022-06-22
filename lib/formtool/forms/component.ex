@@ -14,6 +14,7 @@ defmodule Formtool.Forms.Component do
     field :uuid, Ecto.UUID, autogenerate: true
     field :type, :string
     field :name, :string
+    field :config, :map
     field :weight, :integer
     belongs_to :form, Formtool.Forms.Form
 
@@ -28,7 +29,7 @@ defmodule Formtool.Forms.Component do
   @doc false
   def changeset(component, attrs) do
     component
-    |> cast(attrs, [:type, :name, :weight, :form_id])
+    |> cast(attrs, [:type, :name, :config, :weight, :form_id])
     |> validate_required([:type, :name, :form_id])
     |> validate_inclusion(:type, @component_types)
     |> foreign_key_constraint(:form_id)
