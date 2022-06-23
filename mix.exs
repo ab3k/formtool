@@ -25,6 +25,7 @@ defmodule Formtool.MixProject do
     [
       {:plug_cowboy, "~> 2.0"},
       {:ecto_sql, "~> 3.6"},
+      {:jason, "~> 1.3"},
       {:postgrex, ">= 0.0.0"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]

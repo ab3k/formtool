@@ -30,6 +30,8 @@ defmodule FormtoolApi.Endpoint do
     end
   end
 
+  forward("/forms/", to: FormtoolApi.FormsRouter)
+
   match _ do
     conn
     |> put_resp_content_type("text/plain")
