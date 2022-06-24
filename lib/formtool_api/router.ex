@@ -31,6 +31,7 @@ defmodule FormtoolApi.Endpoint do
   end
 
   forward("/forms/", to: FormtoolApi.FormsRouter)
+  forward("/submissions/", to: FormtoolApi.SubmissionsRouter)
 
   match _ do
     conn
