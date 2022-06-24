@@ -23,3 +23,15 @@ defmodule FormtoolApi.Submissions.SubmitResponder do
 
   defp response_for(_), do: {400, %{msg: "error"}}
 end
+
+defmodule TupleEncoder do
+  alias Jason.Encoder
+
+  defimpl Encoder, for: Tuple do
+    def encode(data, options) when is_tuple(data) do
+      data
+      |> Tuple.to_list()
+      |> Encoder.List.encode(options)
+    end
+  end
+end

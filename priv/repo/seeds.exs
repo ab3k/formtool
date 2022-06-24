@@ -17,7 +17,12 @@ form1 =
       uuid: "06d4c473-f3f0-4ee6-9d22-e09178fcdbd5",
       title: "Form 1",
       description: "A form with components",
-      config: %{}
+      config: %{
+        "validations" => %{
+          "email" => ["required", "email"],
+          "name" => ["required"]
+        }
+      }
     },
     on_conflict: :nothing
   )

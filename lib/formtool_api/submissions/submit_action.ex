@@ -20,8 +20,11 @@ defmodule FormtoolApi.Submissions.SubmitAction do
            {:ok, form} <- Forms.get_form_by_uuid(uuid),
            {:ok, submission} <- Submissions.start_submission(form),
            {:ok, changeset, permitted} <- Submissions.get_changeset_and_permitted(submission) do
+        validations = Forms.Form.validations(form)
+
         changeset
         |> Ecto.Changeset.cast(data, permitted)
+        |> Submissions.Validator.add_validations(validations)
         |> Ecto.Changeset.apply_action(:update)
       else
         _ -> :error

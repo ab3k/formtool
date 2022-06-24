@@ -21,4 +21,23 @@ defmodule Formtool.Forms.Form do
     |> validate_required([:title])
     |> unique_constraint([:uuid])
   end
+
+  @doc """
+  Transform the stored JSON to a keyword list of validations.
+
+  Can be used with the Validator.add_validations()
+  """
+  def validations(form) do
+    validations = Map.get(form.config, "validations", %{})
+
+    Enum.reduce(validations, [], fn {name, validations}, acc ->
+      Keyword.put(
+        acc,
+        String.to_atom(name),
+        Enum.map(validations, fn validation ->
+          {String.to_atom(validation), true}
+        end)
+      )
+    end)
+  end
 end
