@@ -13,4 +13,26 @@ defmodule Formtool.Forms do
       %Form{} = form -> {:ok, form}
     end
   end
+
+  def serialize_by_uuid(uuid) do
+    case get_form_by_uuid(uuid) do
+      {:ok, form} ->
+        {:ok,
+         %{
+           "form_uuid" => form.uuid,
+           "description" => form.description,
+           "components" =>
+             for component <- form.components do
+               %{
+                 "component_uuid" => component.uuid,
+                 "type" => component.type,
+                 "name" => component.name
+               }
+             end
+         }}
+
+      {:error, _} = error ->
+        error
+    end
+  end
 end

@@ -13,6 +13,8 @@ defmodule Formtool.Application do
 
     children = [
       Formtool.Repo,
+      {Registry, [keys: :unique, name: Formtool.Submissions.Registry]},
+      Formtool.Submissions.Supervisor,
       {Plug.Cowboy, scheme: :http, plug: FormtoolApi.Endpoint, port: port}
     ]
 
