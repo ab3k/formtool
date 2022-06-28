@@ -8,7 +8,8 @@ defmodule Formtool.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: releases()
     ]
   end
 
@@ -37,6 +38,15 @@ defmodule Formtool.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+    ]
+  end
+
+  # Releases for this project.
+  defp releases do
+    [
+      formtool: [
+        include_executables_for: [:unix]
+      ]
     ]
   end
 end
