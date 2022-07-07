@@ -45,7 +45,8 @@ defmodule Formtool.MixProject do
   defp releases do
     [
       formtool: [
-        include_executables_for: [:unix]
+        include_executables_for: [:unix],
+        applications: [runtime_tools: :permanent]
       ]
     ]
   end
