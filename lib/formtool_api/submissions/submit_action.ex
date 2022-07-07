@@ -30,6 +30,11 @@ defmodule FormtoolApi.Submissions.SubmitAction do
         _ -> :error
       end
 
+    case result do
+      {:ok, data} -> Formtool.Processors.process_all(data)
+      _ -> nil
+    end
+
     conn
     |> responder.respond(result)
   end
